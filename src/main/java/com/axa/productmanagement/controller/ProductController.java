@@ -9,22 +9,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.axa.productmanagement.models.Product;
-import com.axa.productmanagement.models.User;
 import com.axa.productmanagement.service.ProductService;
-import com.axa.productmanagement.service.UserService;
 
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
     private ProductService productService;
-    private UserService userService;
 
-    public ProductController(ProductService productService, UserService userService) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
-        this.userService = userService;
     }
 
     @GetMapping
@@ -39,15 +34,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody Product product,
-            @RequestParam Long userId) {
-        Optional<User> user = userService.getUserById(userId);
-        if (user.isPresent()) {
-            // product.setUser(user.get());
-            return ResponseEntity.ok(productService.createProduct(product));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        return ResponseEntity.ok(productService.createProduct(product));
     }
 
     @DeleteMapping("/{id}")

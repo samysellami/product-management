@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.axa.productmanagement.models.Order;
 import com.axa.productmanagement.service.OrderService;
@@ -25,8 +26,9 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping
-    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
-        return new ResponseEntity<>(orderService.saveOrder(order), HttpStatus.CREATED);
+    public ResponseEntity<Order> createOrder(@RequestParam Long userId, @RequestParam List<Long> productIds) {
+        Order order = orderService.createOrder(userId, productIds);
+        return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
 
     @GetMapping

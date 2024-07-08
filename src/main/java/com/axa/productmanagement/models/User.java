@@ -2,6 +2,7 @@ package com.axa.productmanagement.models;
 
 import java.util.HashSet;
 import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;
@@ -26,6 +27,7 @@ public class User {
 
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
 	private Set<Order> orders = new HashSet<>();
 
 	public User() {}

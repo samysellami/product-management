@@ -1,5 +1,6 @@
 package com.axa.productmanagement.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ public class Product {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "`order`")
+	@JsonIgnore
 	private Order order;
 
 	public Product() {}
